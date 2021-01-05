@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MublogMobile.Services
 {
@@ -23,7 +24,7 @@ namespace MublogMobile.Services
 
         public bool IsInitialized;
         private static MainLogic _instance;
-        public HttpClient Client { get; } = new HttpClient();
+        public HttpClient _client = new HttpClient();
         public static readonly Uri API_URI = new Uri("https://mublog.xyz/");
 
         public User CurrentUser { get; private set; }
@@ -32,7 +33,7 @@ namespace MublogMobile.Services
 
         private MainLogic()
         {
-            this.Client.BaseAddress = API_URI;
+            this._client.BaseAddress = API_URI;
         }
 
         public async void Init()
@@ -48,9 +49,19 @@ namespace MublogMobile.Services
         {           
             var jsonLogin = this.CurrentUser.GetJsonLogin("password");
             var content = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
-            var response = await this.Client.PostAsync("/api/v1/accounts/login", content);
+            var response = await this._client.PostAsync("/api/v1/accounts/login", content);
             //var result = await response.Content.ReadAsStringAsync();
             //todo: check if result is okay
+        }
+
+        public async Task<string> GetClientResultAsync(string requestUri)
+        {
+            var task = this._client.GetAsync(requestUri);
+            task.Wait(); //todo: didnt load async for some reason
+            var response = task.Result;
+
+            return await response.Content.ReadAsStringAsync();
+
         }
 
         public List<Post> GetAllPosts() => this._posts;

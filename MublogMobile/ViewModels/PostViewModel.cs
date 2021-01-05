@@ -12,27 +12,28 @@ namespace MublogMobile.ViewModels
         private string _LIKE_EMPTY_SOURCE = "likeEmpty.png";
         private const string _LIKE_FILLED_SOURCE = "likeFilled.png";
 
-        private readonly Post _post;
+        public Post Post { get; }
 
-        public string Text => this._post.Text;
-        public string ImageSource => this._post.User.ImageUrl;
-        public string Alias => this._post.User.DisplayName;
-        public string Username => "@" + this._post.User.Alias;
-        public int Comments => 0;
-        public string LikeIconSource => this._post.IsLiked ? _LIKE_FILLED_SOURCE : _LIKE_EMPTY_SOURCE;
-        public int Likes => this._post.Likes;
+        public string Text => this.Post.Text;
+        public string ImageSource => this.Post.User.ImageUrl;
+        public string Alias => this.Post.User.DisplayName;
+        public string Username => "@" + this.Post.User.Alias;
+        public string Date => this.Post.DateCreated.ToString("dd/MM/yy");
+        public int Comments => this.Post.CommentAmount;
+        public string LikeIconSource => this.Post.IsLiked ? _LIKE_FILLED_SOURCE : _LIKE_EMPTY_SOURCE;
+        public int Likes => this.Post.Likes;
 
         public ICommand LikeTapCommand { get; } 
 
         public PostViewModel(Post post)
         {
-            this._post = post;
+            this.Post = post;
             this.LikeTapCommand = new Command(OnLikeTapped);
         }
 
         public void OnLikeTapped()
         {
-            this._post.IsLiked = !this._post.IsLiked;
+            this.Post.IsLiked = !this.Post.IsLiked;
             this.OnPropertyChanged(nameof(Likes));
             this.OnPropertyChanged(nameof(LikeIconSource));
         }
