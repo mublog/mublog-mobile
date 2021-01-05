@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MublogMobile.Models
@@ -16,6 +17,8 @@ namespace MublogMobile.Models
         public int Likes { get; private set; }
 
         private const string _GET_POSTS_URI = "/api/v1/posts?Page=1&Size=30";
+        private static readonly Regex _linkRegex = new Regex(@"\[(.+)\]\((.+)\)");
+
 
         public bool IsLiked
         {
@@ -36,11 +39,30 @@ namespace MublogMobile.Models
 
         public Post(string text, User user, DateTime dateCreated, int likes)
         {
+            text = _ParseText(text);
             this.Text = text;
+            
+
             this.User = user;
             this.DateCreated = dateCreated;
             this.Likes = likes;
         }
+
+
+        private static string _ParseText(string text)
+        {
+            var match = _linkRegex.Match(text);
+            while(match.Success)
+            {
+                var wholeLink = match.Groups[0].Value;
+                var linkDescription = match.Groups[1].Value;
+                text = text.Replace(wholeLink, linkDescription);
+                match = match.NextMatch();
+            }
+
+            return text;
+        }
+
 
         //todo: handle loading errors properly
         public static async Task<List<Post>> LoadAll()
@@ -62,11 +84,9 @@ namespace MublogMobile.Models
 
             foreach (var jPost in jArray)
             {
-                var jUser = jPost["user"];
-                var user = logic.GetOrCreateUser((string)jUser["alias"], (string)jUser["displayName"]);
+                var user = User.GetOrCreateUser(jPost["user"]);
                 var time = (int)jPost["datePosted"];
-                var time2 = Utils.UnixTimeStampToDateTime(time);
-                posts.Add(new Post((string)jPost["textContent"], user, time2, (int)jPost["likeAmount"]));
+                posts.Add(new Post((string)jPost["textContent"], user, Utils.UnixTimeStampToDateTime(time), (int)jPost["likeAmount"]));
             }
 
             return posts;
