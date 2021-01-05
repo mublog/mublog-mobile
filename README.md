@@ -43,9 +43,11 @@ Das ViewModel behandelt dadrauf hin die Interaktion mit den Daten, den Models.
 Gleichzeitig kann das ViewModel über DataBinding die Views über Datenänderung informieren.
 
 In der View wird beim Like auf das LikeTapCommand gebinded. 
+
 ![mvvm structure](https://i.imgur.com/4w4UZKW.png)
 
 Dieses kann nun im zugehörigen Model abgearbeitet werden.
+
 ![mvvm structure](https://i.imgur.com/XwaEYqG.png)
 
 Auf diese Art kann sichergestellt werden, dass Views immer die Backend-Daten repräsentieren und es eine Kopplung von UI und Backend gibt.
