@@ -16,7 +16,7 @@
                        HorizontalOptions="Center"
                        Padding="0"
                        IsClippedToBounds="True">
-                    <Image Source="{Binding ImageSource}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="40" HeightRequest="40">
+                    <Image Source="{Binding ImageSource}" BackgroundColor="{StaticResource Back2}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="_OnUserTapped"/>
                         </Image.GestureRecognizers>
@@ -24,7 +24,7 @@
                 </Frame>
 
             </StackLayout>
-            <Frame OutlineColor="Black" BackgroundColor="#fff1e8" CornerRadius="7" Padding="0" Margin="5, 0, 5, 5" Grid.Column="1">
+            <Frame OutlineColor="Black" BackgroundColor="{StaticResource Back2}" CornerRadius="7" Padding="0" Margin="5, 0, 5, 5" Grid.Column="1">
                 <StackLayout Spacing="0">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>

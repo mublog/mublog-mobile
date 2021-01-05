@@ -8,7 +8,7 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <Frame  BackgroundColor="#fff1e8"
+            <Frame  BackgroundColor="{StaticResource Back2}"
                     Padding="0">
                 <Grid Padding="10">
                     <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
                    Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                    IsClippedToBounds="True">
 
-                        <Image Source="{Binding ImageSource}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="65" HeightRequest="65">
+                        <Image Source="{Binding ImageSource}" BackgroundColor="{StaticResource Back2}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="65" HeightRequest="65">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="_OnImageNameTapped"/>
                             </Image.GestureRecognizers>

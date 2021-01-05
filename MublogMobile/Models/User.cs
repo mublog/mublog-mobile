@@ -1,6 +1,6 @@
 ﻿using MublogMobile.Services;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace MublogMobile.Models
@@ -13,7 +13,8 @@ namespace MublogMobile.Models
         public string ImageUrl { get; } //todo: cache profile image
 
 
-        private const string _EMPTY_URL = "00000000-0000-0000-0000-000000000000";
+        private const string _EMPTY_GUID = "00000000-0000-0000-0000-000000000000";
+        private static readonly Uri _MEDIA_URI = new Uri(MainLogic.API_URI,"/api/v1/media/");
 
         private static readonly string[] _placeHolderUrls = new[]
         {
@@ -58,9 +59,9 @@ namespace MublogMobile.Models
                 var displayName = (string)jUser["displayName"];
                 var profileUrl = (string)jUser["profileImageUrl"];            
 
-                user = profileUrl == _EMPTY_URL
+                user = profileUrl == _EMPTY_GUID
                     ? new User(alias, displayName)
-                    : new User(alias, displayName, profileUrl);
+                    : new User(alias, displayName, _MEDIA_URI + profileUrl);
 
                 existingUsers.Add(user);
             }

@@ -24,8 +24,7 @@ namespace MublogMobile.Services
         public bool IsInitialized;
         private static MainLogic _instance;
         public HttpClient Client { get; } = new HttpClient();
-        private static readonly Uri _API_URI = new Uri("https://mublog.xyz/");
-
+        public static readonly Uri API_URI = new Uri("https://mublog.xyz/");
 
         public User CurrentUser { get; private set; }
         private List<Post> _posts;
@@ -33,20 +32,20 @@ namespace MublogMobile.Services
 
         private MainLogic()
         {
-            this.Client.BaseAddress = _API_URI;
+            this.Client.BaseAddress = API_URI;
         }
 
         public async void Init()
         {
-            this._posts = (await Post.LoadAll()).OrderBy(p => p.DateCreated).ToList();
+            this._posts = (await Post.LoadAll());
             this.CurrentUser = this.AllUsers.FirstOrDefault();
-            this.LoginAsync();        
+            //this.LoginAsync();        
 
             this.IsInitialized = true;
         }
 
         public async void LoginAsync()
-        {
+        {           
             var jsonLogin = this.CurrentUser.GetJsonLogin("password");
             var content = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
             var response = await this.Client.PostAsync("/api/v1/accounts/login", content);
