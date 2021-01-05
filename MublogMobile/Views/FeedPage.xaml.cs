@@ -17,16 +17,17 @@ namespace MublogMobile.Views
             this.LoadMessages();
         }
 
+        //todo: do this with bindings instead
         public void LoadMessages()
         {
-            while (!this._logic.IsInitialized)
-            {
-                Task.Delay(50);
-            }
+            var logic = this._logic;
 
-            var user = this._logic.CurrentUser;
+            while (!logic.IsInitialized)
+                Task.Delay(50);
+
+            var user = logic.CurrentUser;
             var stack = this.SlMessages.Children;
-            var posts = this._logic.GetAllPosts();
+            var posts = logic.GetAllPosts();
 
             posts.ForEach(p => stack.Add(new PostView(p)));
 

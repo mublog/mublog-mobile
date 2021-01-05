@@ -49,14 +49,21 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        
                         <Image Source="{Binding LikeIconSource}" HorizontalOptions="Center" WidthRequest="24" Grid.Column="0">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding LikeTapCommand}"/>
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="{Binding Likes}" Grid.Column="1" VerticalOptions="Center"/>
-                        <Image Source="commentEmpty.png" WidthRequest="24" Grid.Column="2" />
-                        <Label Text="{Binding Comments}" Grid.Column="3" VerticalOptions="Center"/>
+                        
+                        <Image Source="commentEmpty.png" WidthRequest="24" Grid.Column="2">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="_OnCommentsTapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="{Binding CommentAmount}" Grid.Column="3" VerticalOptions="Center"/>
+                        
                     </Grid>
                 </StackLayout>
             </Frame>

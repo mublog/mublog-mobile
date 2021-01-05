@@ -7,7 +7,7 @@ namespace MublogMobile.Models
     public class Post : Message
     {
         private bool _isLiked;
-
+        private List<Comment> _comments;
 
         public int Likes { get; private set; }
 
@@ -30,14 +30,22 @@ namespace MublogMobile.Models
 
         public int CommentAmount { get; }
 
+        public async Task<List<Comment>> GetCommentsAsync()
+        {
+            if (this._comments == null)
+                this._comments = await Comment.LoadAll(this.Id);
+
+            return this._comments;
+        }
+
         private const string _GET_POSTS_URI = "/api/v1/posts?Page=1&Size=30";
 
-        public Post(string text, User user, DateTime dateCreated, int likes, int commentAmount) : base(text, user, dateCreated)
+        private Post(int id, string text, User user, DateTime dateCreated, int likes, int commentAmount) : base(id, text, user, dateCreated)
         {
             this.Likes = likes;
             this.CommentAmount = commentAmount;
         }
-      
+
         public static async Task<List<Post>> LoadAll()
         {
 
@@ -47,7 +55,7 @@ namespace MublogMobile.Models
             foreach (var jPost in jArray)
             {
                 var parsed = ParseJMessage(jPost);
-                posts.Add(new Post(parsed.Item1, parsed.Item2, parsed.Item3, (int)jPost["likeAmount"], (int)jPost["commentsAmount"]));
+                posts.Add(new Post(parsed.Item1, parsed.Item2, parsed.Item3, parsed.Item4, (int)jPost["likeAmount"], (int)jPost["commentsAmount"]));
             }
 
             return posts;

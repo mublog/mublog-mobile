@@ -8,6 +8,7 @@ namespace MublogMobile.Models
 {
     public abstract class Message
     {
+        protected int Id { get; }
         public string Text { get; }
         public User User { get; }
         public DateTime DateCreated { get; }
@@ -33,8 +34,9 @@ namespace MublogMobile.Models
             return text;
         }
 
-        public Message(string text, User user, DateTime dateCreated)
+        protected Message(int id, string text, User user, DateTime dateCreated)
         {
+            this.Id = id;
             this.Text = _ParseText(text);
             this.User = user;
             this.DateCreated = dateCreated;
@@ -51,7 +53,8 @@ namespace MublogMobile.Models
             return JArray.Parse(jDataString);
         }
 
-        protected static (string, User, DateTime) ParseJMessage(JToken jMessage) => (
+        protected static (int, string, User, DateTime) ParseJMessage(JToken jMessage) => (
+                (int)jMessage["id"],
                 (string)jMessage["textContent"],
                 User.GetOrCreateUser(jMessage["user"]),
                 Utils.UnixTimeStampToDateTime((int)jMessage["datePosted"])

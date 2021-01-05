@@ -10,17 +10,28 @@ namespace MublogMobile.Views
     public partial class PostView : ContentView
     {
 
-        private readonly PostViewModel _model;
 
-        public PostView(Post post)
+        private PostViewModel _model;
+
+        public PostView()
+        {
+            this.InitializeComponent();
+        }
+
+        public PostView(Post post) : this()
         {           
             this._model = new PostViewModel(post);
+            this.BindingContext = this._model;         
+        }
+
+        public void SetPost(Post post)
+        {
+            this._model = new PostViewModel(post);
             this.BindingContext = this._model;
-            this.InitializeComponent();
         }
 
         //todo: check if this belongs here or in the viewModel
         private void _OnUserTapped(object _, EventArgs __) => this.Navigation.PushAsync(new ProfilePage(this._model.Post.User));
-
+        private void _OnCommentsTapped(object _, EventArgs __) => this.Navigation.PushAsync(new CommentPage(this._model.Post));
     }
 }

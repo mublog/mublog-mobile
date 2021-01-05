@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace MublogMobile.ViewModels
 {
-    public class PostViewModel : INotifyPropertyChanged
+    public class PostViewModel : MessageViewModel, INotifyPropertyChanged
     {
 
         private string _LIKE_EMPTY_SOURCE = "likeEmpty.png";
@@ -14,18 +14,13 @@ namespace MublogMobile.ViewModels
 
         public Post Post { get; }
 
-        public string Text => this.Post.Text;
-        public string ImageSource => this.Post.User.ImageUrl;
-        public string Alias => this.Post.User.DisplayName;
-        public string Username => "@" + this.Post.User.Alias;
-        public string Date => this.Post.DateCreated.ToString("dd/MM/yy");
-        public int Comments => this.Post.CommentAmount;
+        public int CommentAmount => this.Post.CommentAmount;
         public string LikeIconSource => this.Post.IsLiked ? _LIKE_FILLED_SOURCE : _LIKE_EMPTY_SOURCE;
         public int Likes => this.Post.Likes;
 
         public ICommand LikeTapCommand { get; } 
 
-        public PostViewModel(Post post)
+        public PostViewModel(Post post) : base(post)
         {
             this.Post = post;
             this.LikeTapCommand = new Command(OnLikeTapped);
