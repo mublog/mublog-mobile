@@ -30,6 +30,7 @@ Die Posts werden im gleichen Layout wie auf der FeedPage präsentiert.
 
 ## Über die App
 Die App wurde mit Xamarin-Forms entwickelt und ist somit prinzipell sowie für Android als auch IOS einsetzbar (allerdings bisher nur auf Android getestet).
+
 ![Projects](https://i.imgur.com/HKUtiV5.png)
 
 ### MVVM
