@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MublogMobile.Services
@@ -40,32 +39,36 @@ namespace MublogMobile.Services
         {
             this._posts = (await Post.LoadAll());
             this.CurrentUser = this.AllUsers.FirstOrDefault();
-            //this.LoginAsync();        
-
             this.IsInitialized = true;
         }
 
-        public async void LoginAsync()
-        {           
-            var jsonLogin = this.CurrentUser.GetJsonLogin("password");
-            var content = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
-            var response = await this._client.PostAsync("/api/v1/accounts/login", content);
-            //var result = await response.Content.ReadAsStringAsync();
-            //todo: check if result is okay
+        public async Task<bool> TryLoginAsync(string name, string password)
+        {
+            var result = await User.TryLoginAsync(name, password);
+            this.CurrentUser = result.Item2;
+            return result.Item1;
         }
 
         public async Task<string> GetClientResultAsync(string requestUri)
         {
             var task = this._client.GetAsync(requestUri);
-            task.Wait(); //todo: didnt load async for some reason
+            task.Wait(); //todo: doesnt load async for some reason
             var response = task.Result;
 
             return await response.Content.ReadAsStringAsync();
+        }
 
+        public async Task<string> PostClientResultAsync(string requestUri, StringContent content)
+        {
+            var task = this._client.PostAsync(requestUri, content);
+            task.Wait(); //todo: doesnt load async for some reason
+            var response = task.Result;
+
+            return await response.Content.ReadAsStringAsync();
         }
 
         public List<Post> GetAllPosts() => this._posts;
-        public List<Post> GetPostsFrom(User user) => this._posts.Where(p => p.User.Alias == user.Alias).ToList();
+        public List<Post> GetPostsFrom(User user) => this._posts.Where(p => p.User.UserName == user.UserName).ToList();
 
     }
 }

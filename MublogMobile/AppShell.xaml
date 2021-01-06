@@ -85,8 +85,16 @@
         <ShellContent Route="FeedPage" ContentTemplate="{DataTemplate local:FeedPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Profile" Icon="profile.png">
+    <FlyoutItem x:Name="profileItem" Title="Profile" Icon="profile.png">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem x:Name="loginItem" Title="Login" Icon="login.png">
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem x:Name="logoutItem" Title="Logout" Icon="logout.png">
+        <ShellContent Route="LogoutPage" ContentTemplate="{DataTemplate local:LogoutPage}" />
     </FlyoutItem>
 
     <!-- Optional Templates 

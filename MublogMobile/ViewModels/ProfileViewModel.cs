@@ -11,8 +11,8 @@ namespace MublogMobile.ViewModels
         private readonly User _user;
         private readonly MainLogic _logic = MainLogic.Instance;
         public string ImageSource => this._user.ImageUrl;
-        public string Alias => this._user.DisplayName;
-        public string Username => "@" + this._user.Alias;
+        public string DisplayName => this._user.DisplayName;
+        public string UserName => "@" + this._user.UserName;
 
         public List<Post> GetPosts => this._logic.GetPostsFrom(this._user);
 

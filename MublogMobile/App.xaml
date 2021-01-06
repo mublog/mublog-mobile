@@ -19,12 +19,11 @@
             </Style>
 
             <Style TargetType="Label">
-                <!--doesnt work somehow-->
                 <Setter Property="TextColor" Value="{StaticResource Text}"/>
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource Text}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">

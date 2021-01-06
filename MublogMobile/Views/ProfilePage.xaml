@@ -35,8 +35,8 @@
                         </Image>
                     </Frame>
 
-                    <Label Text="{Binding Alias}" Font="Bold, 20" Grid.Column="1" Grid.Row="0" Padding="0" Margin="0"/>
-                    <Label Text="{Binding Username}" Grid.Column="1" Grid.Row="1" Padding="0" Margin="0"/>
+                    <Label Text="{Binding DisplayName}" Font="Bold, 20" Grid.Column="1" Grid.Row="0" Padding="0" Margin="0"/>
+                    <Label Text="{Binding UserName}" Grid.Column="1" Grid.Row="1" Padding="0" Margin="0"/>
                 </Grid>
             </Frame>
 

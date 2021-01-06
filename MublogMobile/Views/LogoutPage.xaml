@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MublogMobile.Views.LogoutPage"
+             BackgroundColor="{StaticResource Back}">
+    <ContentPage.Content>
+        <Button Text="Logout" VerticalOptions="Center" Clicked="LogoutClicked" Margin="10, 50, 10, 0"/>
+    </ContentPage.Content>
+</ContentPage>

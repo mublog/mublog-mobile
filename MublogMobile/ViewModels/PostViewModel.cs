@@ -12,9 +12,14 @@ namespace MublogMobile.ViewModels
         private string _LIKE_EMPTY_SOURCE = "likeEmpty.png";
         private const string _LIKE_FILLED_SOURCE = "likeFilled.png";
 
+        private string _COMMENT_EMPTY_SOURCE = "commentEmpty.png";
+        private const string _COMMENT_FILLED_SOURCE = "commentFilled.png";
+
         public Post Post { get; }
 
         public int CommentAmount => this.Post.CommentAmount;
+        public string CommentIconSource => this.CommentAmount == 0 ? _COMMENT_EMPTY_SOURCE : _COMMENT_FILLED_SOURCE;
+
         public string LikeIconSource => this.Post.IsLiked ? _LIKE_FILLED_SOURCE : _LIKE_EMPTY_SOURCE;
         public int Likes => this.Post.Likes;
 

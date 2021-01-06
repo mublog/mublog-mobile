@@ -33,8 +33,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="{Binding Alias}" Grid.Column="0"/>
-                        <Label Text="{Binding Username}" TextColor="{StaticResource Link}" Grid.Column="1"/>
+                        <Label Text="{Binding DisplayName}" Grid.Column="0"/>
+                        <Label Text="{Binding Userame}" TextColor="{StaticResource Link}" Grid.Column="1"/>
                         <Label Text="{Binding Date}" HorizontalOptions="End" Grid.Column="2"/>
                         <Image Source="calendar.png" HorizontalOptions="End" Grid.Column="3"/>
                     </Grid>
@@ -56,8 +56,8 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="{Binding Likes}" Grid.Column="1" VerticalOptions="Center"/>
-                        
-                        <Image Source="commentEmpty.png" WidthRequest="24" Grid.Column="2">
+
+                        <Image Source="{Binding CommentIconSource}" WidthRequest="24" Grid.Column="2">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="_OnCommentsTapped"/>
                             </Image.GestureRecognizers>

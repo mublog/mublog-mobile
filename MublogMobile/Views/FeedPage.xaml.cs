@@ -25,7 +25,6 @@ namespace MublogMobile.Views
             while (!logic.IsInitialized)
                 Task.Delay(50);
 
-            var user = logic.CurrentUser;
             var stack = this.SlMessages.Children;
             var posts = logic.GetAllPosts();
 
