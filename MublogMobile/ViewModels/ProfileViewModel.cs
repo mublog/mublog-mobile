@@ -13,6 +13,9 @@ namespace MublogMobile.ViewModels
         public string ImageSource => this._user.ImageUrl;
         public string DisplayName => this._user.DisplayName;
         public string UserName => "@" + this._user.UserName;
+        public string Followers => "Follower: " + this._user.FollowerCount;
+        public string Following => "Folgt: " + this._user.FollowingCount;
+        
 
         public List<Post> GetPosts => this._logic.GetPostsFrom(this._user);
 

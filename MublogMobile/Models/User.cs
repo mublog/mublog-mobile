@@ -14,7 +14,8 @@ namespace MublogMobile.Models
         public string UserName { get; }
         public string DisplayName { get; }
         public string ImageUrl { get; } //todo: cache profile image
-
+        public int FollowerCount { get; }
+        public int FollowingCount { get; }
 
         private const string _EMPTY_GUID = "00000000-0000-0000-0000-000000000000";
         private static readonly Uri _MEDIA_URI = new Uri(MainLogic.API_URI,"/api/v1/media/");
@@ -34,43 +35,26 @@ namespace MublogMobile.Models
         private static int _placeHolderIndex = 0;
 
 
-        public User(string userName, string displayName)
+        public User(string userName, string displayName, int followerCount, int followingCount)
         {
             this.UserName = userName;
             this.DisplayName = displayName;
+            this.FollowerCount = followerCount;
+            this.FollowingCount = followingCount;
+
             this.ImageUrl = _placeHolderUrls[_placeHolderIndex];
             _placeHolderIndex = (_placeHolderIndex + 1) % _placeHolderUrls.Length;
         }
 
-        public User(string userName, string displayName, string imageUrl)
+        public User(string userName, string displayName, int followerCount, int followingCount, string imageUrl)
         {
             this.UserName = userName;
             this.DisplayName = displayName;
+            this.FollowerCount = followerCount;
+            this.FollowingCount = followingCount;
             this.ImageUrl = imageUrl;
         }
 
-
-        //can only be used together with messages, otherwise parsing doesnt work
-        public static User GetOrCreateUser(JToken jUser)
-        {
-            var existingUsers = MainLogic.Instance.AllUsers;
-            var userName = (string)jUser["alias"];
-
-            var user = existingUsers.Where(u => u.UserName == userName).FirstOrDefault();
-            if (user == null) // no user found
-            {
-                var displayName = (string)jUser["displayName"];
-                var profileUrl = (string)jUser["profileImageUrl"];            
-
-                user = profileUrl == _EMPTY_GUID
-                    ? new User(userName, displayName)
-                    : new User(userName, displayName, _MEDIA_URI + profileUrl);
-
-                existingUsers.Add(user);
-            }
-
-            return user;
-        }
 
         public static async Task<(bool, User)> TryLoginAsync(string name, string password)
         {
@@ -80,11 +64,11 @@ namespace MublogMobile.Models
             var jObject = JObject.Parse(result);
             var isError = (bool)jObject["isError"];
 
-            return isError ? (false, null) : (true, await LoadUserByNameAsync(name));
+            return isError ? (false, null) : (true, await GetOrCreateUser(name));
         }
 
         //todo: is partly copy paste atm
-        private static async Task<User> LoadUserByNameAsync(string name)
+        public static async Task<User> GetOrCreateUser(string name)
         {
             var result = await MainLogic.Instance.GetClientResultAsync(string.Format(_USER_URI, name));
             var existingUsers = MainLogic.Instance.AllUsers;
@@ -98,10 +82,12 @@ namespace MublogMobile.Models
             {
                 var displayName = (string)jUser["displayName"];
                 var profileUrl = (string)jUser["profileImageId"];
+                var followerCount = (int)jUser["followersCount"];
+                var followingCount = (int)jUser["followingCount"];
 
                 user = profileUrl == _EMPTY_GUID
-                    ? new User(userName, displayName)
-                    : new User(userName, displayName, _MEDIA_URI + profileUrl);
+                    ? new User(userName, displayName, followerCount, followingCount)
+                    : new User(userName, displayName, followerCount, followingCount, _MEDIA_URI + profileUrl);
 
                 existingUsers.Add(user);
             }

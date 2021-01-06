@@ -54,7 +54,7 @@ namespace MublogMobile.Models
 
             foreach (var jPost in jArray)
             {
-                var parsed = ParseJMessage(jPost);
+                var parsed = await ParseJMessage(jPost);
                 posts.Add(new Post(parsed.Item1, parsed.Item2, parsed.Item3, parsed.Item4, (int)jPost["likeAmount"], (int)jPost["commentsAmount"]));
             }
 

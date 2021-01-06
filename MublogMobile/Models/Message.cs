@@ -53,12 +53,11 @@ namespace MublogMobile.Models
             return JArray.Parse(jDataString);
         }
 
-        protected static (int, string, User, DateTime) ParseJMessage(JToken jMessage) => (
-                (int)jMessage["id"],
-                (string)jMessage["textContent"],
-                User.GetOrCreateUser(jMessage["user"]),
-                Utils.UnixTimeStampToDateTime((int)jMessage["datePosted"])
-                );
-
+        protected static async Task<(int, string, User, DateTime)> ParseJMessage(JToken jMessage) => (
+            (int)jMessage["id"],
+            (string)jMessage["textContent"],
+            await User.GetOrCreateUser((string)(jMessage["user"]["alias"])),
+            Utils.UnixTimeStampToDateTime((int)jMessage["datePosted"])
+            );
     }
 }

@@ -20,6 +20,7 @@
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>
+            <Label Text="{Binding LoginErrorText}" HorizontalOptions="Center" TextColor="Red"/>
 
             <Button Text="Login" Command="{Binding LoginCommand}" Margin="0, 50, 0, 0"/>
         </StackLayout>

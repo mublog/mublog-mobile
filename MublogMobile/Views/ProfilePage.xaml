@@ -7,10 +7,10 @@
 
     <ContentPage.Content>
         <StackLayout>
-
             <Frame  BackgroundColor="{StaticResource Back2}"
                     Padding="0">
-                <Grid Padding="10">
+                <StackLayout>
+                <Grid Padding="10, 10, 10, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
@@ -18,8 +18,8 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
                     <Frame CornerRadius="100"
                    WidthRequest="65"
@@ -37,7 +37,19 @@
 
                     <Label Text="{Binding DisplayName}" Font="Bold, 20" Grid.Column="1" Grid.Row="0" Padding="0" Margin="0"/>
                     <Label Text="{Binding UserName}" Grid.Column="1" Grid.Row="1" Padding="0" Margin="0"/>
+                    
                 </Grid>
+                    <BoxView Color="Black" HeightRequest="1"/>
+                    <Grid Padding="20, 0, 0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding Followers}" Grid.Column="0"/>
+                        <Label Text="{Binding Following}" Grid.Column="1"/>
+                    </Grid>
+                    
+                </StackLayout>
             </Frame>
 
             <ScrollView>

@@ -19,7 +19,7 @@ namespace MublogMobile.Models
 
             foreach (var jComment in jArray) 
             {
-                var parsed = ParseJMessage(jComment);
+                var parsed = await ParseJMessage(jComment);
                 comments.Add(new Comment(parsed.Item1, parsed.Item2, parsed.Item3, parsed.Item4));
             }
 
