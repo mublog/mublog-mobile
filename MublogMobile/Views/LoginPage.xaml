@@ -7,7 +7,20 @@
     <ContentPage.Content>
         <StackLayout Padding="10, 80, 10, 10">
             <Entry Placeholder="Benutzername" Text="{Binding UserName}"/>
-            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True"/>
+            <Entry Placeholder="Passwort" Text="{Binding Password}" IsPassword="True"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Du hast noch kein Konto?" HorizontalOptions="End" Grid.Column="0"/>
+                <Label Text="dann hier registrieren!" TextColor="#243b61" Grid.Column="1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="LinkTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
             <Button Text="Login" Command="{Binding LoginCommand}" Margin="0, 50, 0, 0"/>
         </StackLayout>
     </ContentPage.Content>

@@ -34,7 +34,7 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <Label Text="{Binding DisplayName}" Grid.Column="0"/>
-                        <Label Text="{Binding Userame}" TextColor="{StaticResource Link}" Grid.Column="1"/>
+                        <Label Text="{Binding UserName}" TextColor="{StaticResource Link}" Grid.Column="1"/>
                         <Label Text="{Binding Date}" HorizontalOptions="End" Grid.Column="2"/>
                         <Image Source="calendar.png" HorizontalOptions="End" Grid.Column="3"/>
                     </Grid>

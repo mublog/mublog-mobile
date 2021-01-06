@@ -26,7 +26,7 @@ namespace MublogMobile.ViewModels
             if (name == string.Empty || name == null || password == string.Empty || password == null)
                 return;
 
-            if (!await MainLogic.Instance.TryLoginAsync(name, password))
+            if (!await MainLogic.Instance.TryLoginAsync(name.ToLower(), password))
                 return;
 
             this.LoggedIn?.Invoke(this, null);
