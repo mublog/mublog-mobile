@@ -1,3 +1,8 @@
+# Archival Notice
+µblog was a school project to create a working prototype of a microblogging website.
+No further development is currently planned
+<br/>
+
 # Mubloq Mobile
 Dies ist ein Beispiel wie eine App aussehen könnte, welche an die Mublog-API angebunden ist.
 (In diesem Fall mit Xamarin-Forms erstellt).
